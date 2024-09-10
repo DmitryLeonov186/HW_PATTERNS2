@@ -5,6 +5,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.time.Duration;
+
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 import static ru.netology.DataGenerator.Registration.getRegisteredUser;
@@ -26,7 +28,7 @@ public class AuthTest {
         $("[data-test-id=login] input").setValue(registeredUser.getLogin());
         $("[data-test-id=password] input").setValue(registeredUser.getPassword());
         $("[data-test-id=action-login]").click();
-        $("[id=root]").shouldHave(Condition.text("Личный кабинет"));
+        $("h2").shouldHave(Condition.text("Личный кабинет"));
 
     }
 
@@ -38,8 +40,7 @@ public class AuthTest {
         $("[data-test-id=login] input").setValue(notRegisteredUser.getLogin());
         $("[data-test-id=password] input").setValue(notRegisteredUser.getPassword());
         $("[data-test-id=action-login]").click();
-        $("[data-test-id=error-notification] " +
-                ".notification__content").shouldHave(Condition.text("Ошибка! Неверно указан логин или пароль"));
+        $("[data-test-id=error-notification] " + ".notification__content").shouldHave(Condition.text("Ошибка! Неверно указан логин или пароль"));
 
     }
 
@@ -64,6 +65,8 @@ public class AuthTest {
         $("[data-test-id=action-login").click();
         $("[data-test-id=error-notification] .notification__content")
                 .shouldHave(Condition.text("Ошибка! Неверно указан логин или пароль"));
+
+
     }
 
     @Test
